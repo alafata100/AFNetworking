@@ -108,8 +108,6 @@ static char kAFBackgroundImageRequestOperationKey;
             } else if (responseObject) {
                 [strongSelf setImage:responseObject forState:state];
             }
-        } else {
-
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if ([[urlRequest URL] isEqual:[operation.response URL]]) {
@@ -152,7 +150,7 @@ static char kAFBackgroundImageRequestOperationKey;
 
     __weak __typeof(self)weakSelf = self;
     self.af_backgroundImageRequestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
-    self.af_imageRequestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+    self.af_backgroundImageRequestOperation.responseSerializer = [AFImageResponseSerializer serializer];
     [self.af_backgroundImageRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         if ([[urlRequest URL] isEqual:[operation.request URL]]) {
@@ -161,8 +159,6 @@ static char kAFBackgroundImageRequestOperationKey;
             } else if (responseObject) {
                 [strongSelf setBackgroundImage:responseObject forState:state];
             }
-        } else {
-
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if ([[urlRequest URL] isEqual:[operation.response URL]]) {

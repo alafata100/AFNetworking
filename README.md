@@ -2,6 +2,8 @@
   <img src="https://raw.github.com/AFNetworking/AFNetworking/assets/afnetworking-logo.png" alt="AFNetworking" title="AFNetworking">
 </p>
 
+[![Build Status](https://travis-ci.org/AFNetworking/AFNetworking.png)](https://travis-ci.org/AFNetworking/AFNetworking)
+
 AFNetworking is a delightful networking library for iOS and Mac OS X. It's built on top of the [Foundation URL Loading System](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html), extending the powerful high-level networking abstractions built into Cocoa. It has a modular architecture with well-designed, feature-rich APIs that are a joy to use.
 
 Perhaps the most important feature of all, however, is the amazing community of developers who use and contribute to AFNetworking every day. AFNetworking powers some of the most popular and critically-acclaimed apps on the iPhone, iPad, and Mac.
@@ -85,7 +87,7 @@ For compatibility with iOS 4.3 or Mac OS X 10.6, use the [latest 0.10.x release]
 
 ### HTTP Request Operation Manager
 
-`AFHTTPRequestOperationManager` encapsulates the common patterns of communicating with an web application over HTTP, including request creation, response serialization, network reachability monitoring, and security, as well as request operation management.
+`AFHTTPRequestOperationManager` encapsulates the common patterns of communicating with a web application over HTTP, including request creation, response serialization, network reachability monitoring, and security, as well as request operation management.
 
 #### `GET` Request
 
@@ -142,7 +144,7 @@ NSURLRequest *request = [NSURLRequest requestWithURL:URL];
 
 NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
     NSURL *documentsDirectoryPath = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]];
-    return [documentsDirectoryPath URLByAppendingPathComponent:[targetPath lastPathComponent]];
+    return [documentsDirectoryPath URLByAppendingPathComponent:[response suggestedFilename]];
 } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
     NSLog(@"File downloaded to: %@", filePath);
 }];
@@ -192,7 +194,7 @@ NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completion
 
 ### Request Serialization
 
-Request serializers create requests from URL strings, encoding parameters as either a query string or HTTP body. 
+Request serializers create requests from URL strings, encoding parameters as either a query string or HTTP body.
 
 ```objective-c
 NSString *URLString = @"http://example.com";
@@ -271,7 +273,7 @@ NSOperationQueue *operationQueue = manager.operationQueue;
 ### Security Policy
 
 `AFSecurityPolicy` evaluates server trust against pinned X.509 certificates and public keys over secure connections.
- 
+
 Adding pinned SSL certificates to your app helps prevent man-in-the-middle attacks and other vulnerabilities. Applications dealing with sensitive customer data or financial information are strongly encouraged to route all communication over an HTTPS connection with SSL pinning configured and enabled.
 
 #### Allowing Invalid SSL Certificates
